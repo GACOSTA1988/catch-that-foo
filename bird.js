@@ -8,8 +8,13 @@ class Bird {
     this.weight = 1
   }
   update(){
-    this.vy += this.weight
-    this.y += this.vy
+   if (this.y > canvas.height - (this.height * 3)){
+     this.y = canvas.height - (this.height * 3)
+     this.vy = 0
+   } else {
+       this.vy += this.weight
+       this.y += this.vy
+   }
   }
   draw(){
     ctx.fillStyle = 'red'
