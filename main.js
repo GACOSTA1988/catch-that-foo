@@ -16,3 +16,10 @@ function animate(){
   requestAnimationFrame(animate)
 }
 animate()
+
+window.addEventListener('keydown', function(e){
+  if (e.code === "Space") spacePressed = true
+})
+window.addEventListener('keyup', function(e){
+  if (e.code === "Space") spacePressed = false
+})
