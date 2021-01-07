@@ -20,7 +20,7 @@ const obstablesArray = []
  } 
 
  function handleObstacles(){
-   if (frame%50 === 0){
+   if (frame%150 === 0){
      obstablesArray.unshift(new Obstacle)
    }
    for (let i = 0; i < obstablesArray.length; i++){
