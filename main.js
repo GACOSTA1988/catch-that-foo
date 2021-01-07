@@ -17,6 +17,8 @@ function animate(){
   bird.update()
   bird.draw()
   handleParticles()
+  handleCollisions()
+  if (handleCollisions()) return
   requestAnimationFrame(animate)
   angle+= 0.12
   hue++
@@ -30,3 +32,14 @@ window.addEventListener('keydown', function(e){
 window.addEventListener('keyup', function(e){
   if (e.code === "Space") spacePressed = false
 })
+
+const bang = new Image()
+bang.src = 'bang.png'
+function handleCollisions(){
+for (let i = 0; i < obstablesArray.length; i++){
+  if (bird.x < obstablesArray[i].x + obstablesArray[i].width && bird.x + bird.width > obstablesArray[i].x && ((bird.y < 0 + obstablesArray[i].top && bird.y + bird.height > 0) || ( bird.y > canvas.height - obstablesArray[i].bottom && bird.y + bird.height < canvas.height))){
+    ctx.drawImage(bang, bird.x, bird.y, 50, 50)
+  return true
+  }
+}
+}
