@@ -17,13 +17,34 @@ gradient.addColorStop('0.55', '#8A2BE2')
 gradient.addColorStop('0.6', '#5F9EA0')
 gradient.addColorStop('0.9', '#7FFF00')
 
-function animate(){
-  ctx.clearRect(0,0,canvas.width, canvas.height)
+const background = new Image()
+background.src = "BG.png"
+
+const BG = {
+  x1: 0,
+  x2: canvas.width,
+  y: 0,
+  width: canvas.width,
+  height: canvas.height
+}
+
+function handleBackground() {
+  if (BG.x1 <= -BG.width + gamespeed) BG.x1 = BG.width
+  else BG.x1 -= gamespeed
+  if (BG.x2 <= -BG.width + gamespeed) BG.x2 = BG.width
+  else (BG.x2 -= gamespeed)
+  ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height)
+  ctx.drawImage(background, BG.x2, BG.y, BG.width, BG.height)
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
   // ctx.fillRect(10, 10, 50, 50)
+  handleBackground()
   handleObstacles()
   bird.update()
   bird.draw()
-  ctx.fillStyle = gradient 
+  ctx.fillStyle = gradient
   ctx.font = '90px Georgia'
   ctx.strokeText(score, 450, 70)
   ctx.fillText(score, 450, 70)
@@ -31,29 +52,31 @@ function animate(){
   handleCollisions()
   if (handleCollisions()) return
   requestAnimationFrame(animate)
-  angle+= 0.12
+  angle += 0.12
   hue++
   frame++
 }
 animate()
 
-window.addEventListener('keydown', function(e){
+window.addEventListener('keydown', function (e) {
   if (e.code === "Space") spacePressed = true
 })
-window.addEventListener('keyup', function(e){
+window.addEventListener('keyup', function (e) {
   if (e.code === "Space") spacePressed = false
 })
 
 const bang = new Image()
 bang.src = 'bang.png'
-function handleCollisions(){
-for (let i = 0; i < obstablesArray.length; i++){
-  if (bird.x < obstablesArray[i].x + obstablesArray[i].width && bird.x + bird.width > obstablesArray[i].x && ((bird.y < 0 + obstablesArray[i].top && bird.y + bird.height > 0) || ( bird.y > canvas.height - obstablesArray[i].bottom && bird.y + bird.height < canvas.height))){
-    ctx.drawImage(bang, bird.x, bird.y, 50, 50)
-    ctx.font = "25px Georgie"
-    ctx.fillStyle = 'black'
-    ctx.fillText('Game Over, Your score is ' + score, 160, canvas.height/2 -10)
-  return true
+function handleCollisions() {
+  for (let i = 0; i < obstablesArray.length; i++) {
+    if (bird.x < obstablesArray[i].x + obstablesArray[i].width && bird.x + bird.width > obstablesArray[i].x && ((bird.y < 0 + obstablesArray[i].top && bird.y + bird.height > 0) || (bird.y > canvas.height - obstablesArray[i].bottom && bird.y + bird.height < canvas.height))) {
+      ctx.drawImage(bang, bird.x, bird.y, 50, 50)
+      ctx.font = "25px Georgie"
+      ctx.fillStyle = 'black'
+      ctx.fillText('Game Over, Your score is ' + score, 160, canvas.height / 2 - 10)
+      return true
+    }
   }
 }
-}
+
+
