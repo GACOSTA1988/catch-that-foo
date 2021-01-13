@@ -72,7 +72,7 @@ function handleCollisions() {
     if (bird.x < obstablesArray[i].x + obstablesArray[i].width && bird.x + bird.width > obstablesArray[i].x && ((bird.y < 0 + obstablesArray[i].top && bird.y + bird.height > 0) || (bird.y > canvas.height - obstablesArray[i].bottom && bird.y + bird.height < canvas.height))) {
       ctx.drawImage(bang, bird.x, bird.y, 50, 50)
       ctx.font = "25px Georgie"
-      ctx.fillStyle = 'black'
+      ctx.fillStyle = 'white'
       ctx.fillText('Game Over, Your score is ' + score, 160, canvas.height / 2 - 10)
       return true
     }
